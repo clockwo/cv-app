@@ -1,0 +1,11 @@
+@use '@scss' as *;
+
+.button {
+  background-color: $action-active-clr;
+  padding-inline: 1em;
+  padding-block: 0.3em;
+  border: unset;
+
+  cursor: pointer;
+  color: $background-clr;
+}

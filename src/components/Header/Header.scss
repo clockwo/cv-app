@@ -1,0 +1,10 @@
+.nav {
+  &__list {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__item > .button {
+    font-size: 36px;
+  }
+}
