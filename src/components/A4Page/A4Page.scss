@@ -1,0 +1,22 @@
+@use '@scss' as *;
+
+.a4-page {
+  display: flex;
+  flex-direction: column;
+  width: 49.625rem;
+  height: 70.25rem;
+  margin-inline: auto;
+  background-color: white;
+
+  color: black;
+
+  .full-name {
+    margin-inline: auto;
+  }
+
+  .contact {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+}

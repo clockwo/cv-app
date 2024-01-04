@@ -1,35 +1,11 @@
-import { useState } from 'react';
 import './Form.scss';
+import { useState } from 'react';
 import GeneralSection from './sections/GeneralSection';
 import EducationSection from './sections/EducationSection';
 import EmploymentSection from './sections/EmploymentSection';
 import FormHeader from './FormHeader';
 
-const Form = () => {
-  const [form, setForm] = useState([
-    {
-      id: 'General',
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-    },
-    {
-      id: 'Education',
-      degree: '',
-      school: '',
-      city: '',
-      country: '',
-    },
-    {
-      id: 'Practical',
-      company: '',
-      position: '',
-      responsibilities: '',
-      employmentPeriod: '',
-    },
-  ]);
-
+const Form = ({ handleInputChange, form }) => {
   const [step, setStep] = useState(0);
 
   const sectionConfigs = [
@@ -37,16 +13,6 @@ const Form = () => {
     { id: 'Education', Component: EducationSection },
     { id: 'Employment', Component: EmploymentSection },
   ];
-
-  const handleInputChange = (index, field, value) => {
-    setForm((form) => ({
-      ...form,
-      [index]: {
-        ...form[index],
-        [field]: value,
-      },
-    }));
-  };
 
   const moveBack = () => {
     if (step === 0) return;
