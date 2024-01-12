@@ -7,15 +7,21 @@ const FormField = ({
   inputType,
   updateFormValue,
   fieldData,
+  index,
 }) => {
+  const handleChange = (target) => {
+    if (index !== undefined) {
+      updateFormValue(index, labelName, target.value);
+    } else {
+      updateFormValue(labelName, target.value);
+    }
+  };
   return (
     <label htmlFor={labelName}>
       {title}
       <Input
         value={fieldData.name}
-        onChange={({ target }) =>
-          updateFormValue(fieldData.index, labelName, target.value)
-        }
+        onChange={({ target }) => handleChange(target)}
         type={inputType}
         id={labelName}
         className={labelName}

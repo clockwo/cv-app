@@ -1,19 +1,40 @@
 import Button from '../UI/button/Button';
 
-const FormHeader = ({ step, form, moveBack, moveForward }) => {
+const FormHeader = ({
+  title = 'test',
+  showBackButton,
+  showNextButton,
+  canAddItem,
+  canRemoveItem,
+  removeItem,
+  addNewItem,
+  moveBack,
+  moveForward,
+}) => {
   return (
     <header className="form__header">
-      <h2 className="title">{form[step].id}</h2>
+      <h2 className="title">{title}</h2>
       <div className="buttons">
-        {step > 0 && (
+        {showBackButton && (
           <Button type="button" onClick={moveBack}>
             Back
           </Button>
         )}
 
-        {step < 2 && (
+        {showNextButton && (
           <Button type="button" onClick={moveForward}>
             Next
+          </Button>
+        )}
+
+        {canAddItem && !showNextButton && (
+          <Button type="button" onClick={addNewItem}>
+            Add{' '}
+          </Button>
+        )}
+        {canRemoveItem && (showBackButton || showNextButton) && (
+          <Button type="button" onClick={removeItem}>
+            Remove
           </Button>
         )}
       </div>

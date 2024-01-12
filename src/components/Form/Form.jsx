@@ -1,47 +1,80 @@
 import './Form.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GeneralSection from './sections/GeneralSection';
 import EducationSection from './sections/EducationSection';
 import EmploymentSection from './sections/EmploymentSection';
 import FormHeader from './FormHeader';
 
-const Form = ({ handleInputChange, form }) => {
+const Form = ({
+  general,
+  handleGeneralChanges,
+  education,
+  handleEducationChanges,
+  removeEducationItem,
+  experience,
+  handleExperienceChanges,
+  removeExperienceItem,
+  addNewItem,
+}) => {
   const [step, setStep] = useState(0);
+  const [showBackButton, setShowBackButton] = useState(false);
+  const [showNextButton, setShowNextButton] = useState(true);
 
-  const sectionConfigs = [
-    { id: 'General', Component: GeneralSection },
-    { id: 'Education', Component: EducationSection },
-    { id: 'Employment', Component: EmploymentSection },
-  ];
+  const stepComponents = {
+    0: {
+      title: 'General',
+      component: (
+        <GeneralSection
+          general={general}
+          handleGeneralChanges={handleGeneralChanges}
+        />
+      ),
+    },
+    1: {
+      title: 'Education',
+      component: (
+        <EducationSection
+          education={education}
+          addNewItem={addNewItem}
+          handleEducationChanges={handleEducationChanges}
+          removeEducationItem={removeEducationItem}
+        />
+      ),
+    },
 
-  const moveBack = () => {
-    if (step === 0) return;
-    setStep((step) => step - 1);
+    2: {
+      title: 'Experience',
+      component: (
+        <EmploymentSection
+          experience={experience}
+          addNewItem={addNewItem}
+          handleExperienceChanges={handleExperienceChanges}
+          removeExperienceItem={removeExperienceItem}
+        />
+      ),
+    },
   };
 
-  const moveForward = () => {
-    if (step === 2) return;
-    setStep((step) => step + 1);
-  };
-
-  const currentSection = sectionConfigs[step];
+  useEffect(() => {
+    setShowBackButton(step > 0);
+    setShowNextButton(step < 2);
+  }, [step]);
 
   return (
     <form className="form">
       <FormHeader
-        step={step}
-        form={form}
-        moveBack={moveBack}
-        moveForward={moveForward}
+        title={stepComponents[step].title}
+        showBackButton={showBackButton}
+        showNextButton={showNextButton}
+        moveBack={() => {
+          setStep((step) => step - 1);
+        }}
+        moveForward={() => {
+          setStep((step) => step + 1);
+        }}
       />
 
-      {currentSection && (
-        <currentSection.Component
-          form={form}
-          step={step}
-          handleInputChange={handleInputChange}
-        />
-      )}
+      {stepComponents[step].component}
     </form>
   );
 };
@@ -49,5 +82,3 @@ const Form = ({ handleInputChange, form }) => {
 export default Form;
 
 // [ ] Сделать LocalStorage ( https://youtu.be/GihQAC1I39Q?si=Py07E0sF4rkTXsCY )
-// [ ] Сделать так, чтобы учеба и опыт работы были массивами
-// [ ] Сделать рендер для резюме

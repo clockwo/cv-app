@@ -1,22 +1,92 @@
 @use '@scss' as *;
 
 .a4-page {
-  display: flex;
-  flex-direction: column;
+  padding-block: 1.5rem;
   width: 49.625rem;
   height: 70.25rem;
   margin-inline: auto;
   background-color: white;
 
-  color: black;
+  &__block {
+    margin-inline: 2rem;
+    color: black;
 
-  .full-name {
-    margin-inline: auto;
+    &-title {
+      border-bottom: 1px solid rgba(0, 0, 0, 1);
+      margin-bottom: 0.3em;
+      text-transform: uppercase;
+    }
+    &:not(:last-child) {
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
   }
 
-  .contact {
+  .general {
     display: flex;
-    justify-content: center;
-    gap: 1.25rem;
+    flex-direction: column;
+
+    &__full-name {
+      margin-inline: auto;
+    }
+
+    &__contact {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+  }
+
+  .practical,
+  .education {
+    &__details {
+      &:not(:last-child) {
+        padding-bottom: 1em;
+      }
+    }
+  }
+
+  .education {
+    &__details {
+      display: flex;
+      font-size: 0.875rem;
+    }
+
+    &__item {
+      &:not(:last-child) {
+        &::after {
+          content: '|';
+          margin-inline: 0.5em;
+        }
+      }
+    }
+  }
+
+  .practical {
+    &__details {
+      display: grid;
+      gap: 0.5rem;
+      grid-template-areas:
+        'position company period'
+        'responsibilities responsibilities responsibilities';
+    }
+
+    &__item {
+      &-position {
+        grid-area: position;
+      }
+      &-company {
+        grid-area: company;
+        justify-self: center;
+      }
+      &-period {
+        grid-area: period;
+        justify-self: end;
+      }
+      &-responsibilities {
+        grid-area: responsibilities;
+      }
+    }
   }
 }

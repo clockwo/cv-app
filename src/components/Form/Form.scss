@@ -22,6 +22,10 @@
     border: 1px solid $divider-clr;
     border-radius: 5px;
 
+    .form__header {
+      grid-column: span 2;
+    }
+
     label {
       display: flex;
       flex-direction: column;
